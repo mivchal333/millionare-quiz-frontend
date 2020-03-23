@@ -1,0 +1,8 @@
+
+export const SET_GAME_STARTED = 'SET_GAME_STARTED'
+export const SET_UP_APP = 'SET_UP_APP'
+export const RESET_GAME = 'RESET_GAME'
+export const GET_QUESTIONS = 'GET_QUESTIONS'
+export const SET_BAD_ANSWER = 'SET_BAD_ANSWER'
+export const SET_GOOD_ANSWER = 'SET_GOOD_ANSWER'
+export const SET_USER_AVATAR = 'SET_USER_AVATAR'
