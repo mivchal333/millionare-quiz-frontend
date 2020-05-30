@@ -19,13 +19,6 @@ body {
   align-items: flex-end;
 }
 
-.l-game {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-}
-
-
 .c-side {
   width: 300px;
   height: 100vh;
@@ -69,7 +62,7 @@ body {
   left: 0;
 }
 
-.c-questions {
+.answers-container {
   width: 100%;
 }
 
@@ -216,22 +209,20 @@ body {
   transition: 230ms;
 }
 
-.c-start-link:hover {
-  background-color: #fff;
-  color: #491c61;
-  border-color: #491c61;
-}
 
-.l-end {
+.end-screen-wrapper {
+  padding: 5vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /*justify-content: center;*/
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: #1561bf;
-  color: #fff;
-  font-size: 50px;
+}
+
+.end-screen-wrapper #ala {
+  font-size: 6vh;
+  padding-bottom: 10vh;
 }
 
 .lifelines-wrapper {

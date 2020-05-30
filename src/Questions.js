@@ -32,7 +32,7 @@ class Questions extends React.Component {
     } = this.props
 
     return (
-      <div className='c-questions'>
+      <div className='answers-container'>
         <p className='c-questions__title c-question'>
           {question}
         </p>

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {setupApp} from "../store/actions";
 import {Button, Checkbox, Form, Image, Select} from "semantic-ui-react";
-import {difficulties} from "../helpers";
-import image from '../images/default_avatar.png'
+import image from '../../images/default_avatar.png'
 import AvatarSetModal from "./AvatarSetModal";
+import {difficulties} from "../const/game.const";
 
 class Setup extends Component {
     constructor(props) {
@@ -69,7 +69,7 @@ class Setup extends Component {
 
 
     handleChange = (e, {name, value}) => {
-        const fieldValue = value ||  !this.state[name]
+        const fieldValue = value || !this.state[name]
         this.setState({[name]: fieldValue})
     };
 
@@ -79,10 +79,10 @@ class Setup extends Component {
         const avatar = this.props.appSettings.avatar || image;
         return (
             <div className='setup-center'>
-                <Form onSubmit={this.onSubmit} className="setup-form" >
+                <Form onSubmit={this.onSubmit} className="setup-form">
                     <Form.Field>
                         <label>Avatar</label>
-                            <Image onClick={this.onModalToggle} bordered circular size='tiny' src={avatar}/>
+                        <Image onClick={this.onModalToggle} bordered circular size='tiny' src={avatar}/>
                     </Form.Field>
                     <Form.Field>
                         <label>Nick</label>

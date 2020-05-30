@@ -7,8 +7,8 @@ import {
     SET_UP_APP,
     SET_USER_AVATAR
 } from "./actionTypes";
-import {fetchQuestions} from "../helpers";
 import {shuffle} from 'lodash'
+import {fetchQuestions} from "../api/question.api";
 
 export const setGameStarted = () => dispatch => {
     dispatch(setGameStartedAction())

@@ -82,12 +82,12 @@
 
 #root {
     height: 100vh;
-    background: url("images/back.png") center center;
+    background: url("../images/background.jpg") center center;
     background-size: cover;
 
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .start-button {
@@ -110,4 +110,14 @@
 
 .start-button {
     padding-top: 30vh;
+}
+
+.game-container {
+    display: flex;
+}
+
+.answers-container {
+    bottom: 0;
+    margin-top: auto;
+
 }

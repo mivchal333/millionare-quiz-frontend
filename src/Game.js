@@ -1,15 +1,21 @@
-import React, {Component} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Questions from './Questions'
-import Background from './Background'
 import SidePanel from './SidePanel'
-import EndScreen from './EndScreen'
+import EndScreen from './app/end/EndScreen'
 import {connect} from "react-redux";
-import {getQuestions, resetGame, setBadAnswer, setGoodAnswer} from "./store/actions";
-import managementReducer from "./store/managment.reducer";
+import {getQuestions, resetGame, setBadAnswer, setGoodAnswer} from "./app/store/actions";
 
-class Game extends Component {
-    componentDidMount() {
+const Game = (props) => {
+    const {
+        questions,
+        currentQuestionNumber,
+        hasWon,
+        isGameFinished,
+        appSettings: {nick}
+    } = props;
+
+    useEffect(() => {
         const {
             appSettings: {
                 nick,
@@ -17,83 +23,64 @@ class Game extends Component {
                 gameStarted
             },
             history
-        } = this.props
+        } = props;
 
         if (!nick || !difficulty || !gameStarted) {
-            history.replace('/')
+            history.replace('/');
             return
         }
+        props.getQuestions(props.appSettings.difficulty)
+    }, [isGameFinished, currentQuestionNumber]);
+    const resetGameAndReturn = async () => {
+        await props.resetGame();
+        props.history.push("/");
 
-        this.fetchQuestions()
-    }
-
-    resetGameAndReturn = async () => {
-        await this.props.resetGame();
-        this.props.history.push("/");
-    }
-
-    fetchQuestions = () => {
-        this.props.getQuestions(this.props.appSettings.difficulty)
-    }
-
-
-    setCurrentAnswer = (answer) => {
+    };
+    
+    const setCurrentAnswer = (answer) => {
         return () => {
-            const {questions, currentQuestionNumber, setGoodAnswer, setBadAnswer} = this.props;
+            const {questions, currentQuestionNumber, setGoodAnswer, setBadAnswer} = props;
             const currentQuestion = questions[currentQuestionNumber]
             return answer === currentQuestion.correctAnswer ? setGoodAnswer() : setBadAnswer()
-        }
+        };
+    };
+    if (!questions.length) {
+        return null;
+
     }
+    const {
+        question,
+        correctAnswer,
+        answers
+    } = questions[currentQuestionNumber];
 
-
-    render() {
-        const {
-            questions,
-            currentQuestionNumber,
-            hasWon,
-            isGameFinished,
-        } = this.props;
-
-        if (!questions.length) {
-            return null;
-        }
-
-        const {
-            question,
-            correctAnswer,
-            answers
-        } = questions[currentQuestionNumber]
-
-        return isGameFinished
-            ? (
-                <EndScreen
-                    hasWon={hasWon}
-                    currentQuestionNumber={currentQuestionNumber}
-                    resetGame={this.resetGameAndReturn}
+    return isGameFinished
+        ? (
+            <EndScreen
+                hasWon={hasWon}
+                currentQuestionNumber={currentQuestionNumber}
+                resetGame={resetGameAndReturn}
+                nick={nick}
+            />
+        )
+        : (
+            <div className="game-container">
+                <Questions
+                    question={question}
+                    answers={answers}
+                    correctAnswer={correctAnswer}
+                    onSelect={setCurrentAnswer}
                 />
-            )
-            : (
-                <div className='l-game'>
-                    <Background>
-                        <div className='c-questions'>
-                            <Questions
-                                question={question}
-                                answers={answers}
-                                correctAnswer={correctAnswer}
-                                onSelect={this.setCurrentAnswer}
-                            />
-                        </div>
-                    </Background>
-                    <SidePanel
-                        currentQuestionNumber={currentQuestionNumber}
-                        correctAnswer={correctAnswer}
-                        answers={answers}
-                        setCurrentQuestionAnswers={this.setCurrentQuestionAnswers}
-                    />
-                </div>
-            )
-    }
-}
+                <SidePanel
+                    currentQuestionNumber={currentQuestionNumber}
+                    correctAnswer={correctAnswer}
+                    answers={answers}
+                    setCurrentQuestionAnswers={props.setCurrentQuestionAnswers}
+                />
+            </div>
+        )
+};
+
 
 Game.propTypes = {
     appSettings: PropTypes.object,
@@ -103,13 +90,13 @@ Game.propTypes = {
     setGoodAnswer: PropTypes.func,
     setBadAnswer: PropTypes.func,
     questions: PropTypes.array,
-}
+};
 const mapStateToProps = state => ({
     appSettings: state.managementReducer,
     questions: state.gameReducer.questions,
     currentQuestionNumber: state.gameReducer.currentQuestionNumber,
     isGameFinished: state.managementReducer.isGameFinished,
     hasWon: state.managementReducer.hasWon,
-})
+});
 const mapDispatchToProps = {resetGame, getQuestions, setGoodAnswer, setBadAnswer};
 export default connect(mapStateToProps, mapDispatchToProps)(Game)

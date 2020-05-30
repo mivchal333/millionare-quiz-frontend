@@ -4,7 +4,7 @@ import {
     Link
 } from 'react-router-dom'
 import {connect} from "react-redux";
-import {setGameStarted} from "./store/actions";
+import {setGameStarted} from "../store/actions";
 import {Button} from "semantic-ui-react";
 import {Header, Icon} from 'semantic-ui-react'
 
@@ -28,7 +28,9 @@ const Home = props => {
                         onClick={props.setGameStarted}
                     >
                         <Button
-                            content='START'
+                            size="massive"
+                            icon="play"
+                            content='PLAY'
                             primary
                             onClick={props.setGameStarted}/>
                     </Link>

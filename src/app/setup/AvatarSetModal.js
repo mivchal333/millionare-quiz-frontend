@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import {Button, Header, Icon, Input, Modal} from 'semantic-ui-react'
 import {fetchImages, fetchRandomPhotos} from "../api/unsplash.api";
 import ImageList from "./ImagesList";
-import {fetchAvatarsOffer} from "../api/adorableAvaatars";
 import {connect} from "react-redux";
 import {setUserAvatar} from "../store/actions";
-import '../App.css'
+import '../../css/App.css'
 
 const userInputTimeout = 700;
 

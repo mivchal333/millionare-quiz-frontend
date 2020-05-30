@@ -5,8 +5,8 @@ import {
     Route,
     Switch
 } from 'react-router-dom'
-import Home from './Home'
-import Setup from './setup/Setup'
+import Home from './app/home/Home'
+import Setup from './app/setup/Setup'
 import Game from './Game'
 
 class App extends React.Component {
